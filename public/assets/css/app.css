@@ -1,0 +1,41 @@
+/* MOBILE RESPONSIVE FIX */
+
+@media (max-width: 768px){
+
+    .content-wrapper{
+        padding: 5px;
+    }
+
+    .card-body{
+        padding: 10px;
+    }
+
+    .table{
+        font-size: 13px;
+    }
+
+    .btn{
+        font-size: 13px;
+    }
+
+    .form-control{
+        font-size: 14px;
+    }
+
+    h1{
+        font-size: 22px;
+    }
+
+    .modal-dialog{
+        margin: 10px;
+    }
+
+    .content-header{
+        padding: 10px;
+    }
+
+    .btn-xs{
+    padding: 2px 6px;
+    font-size: 11px;
+    }
+}
