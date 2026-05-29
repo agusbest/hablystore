@@ -5,9 +5,85 @@
 @section('content_header')
 <h1>Dashboard</h1>
 @stop
+@section('css')
+<link rel="shortcut icon" href="{{ asset('hablystore.ico') }}">
+<style>
+
+/* ===== SMALL BOX FIX GLOBAL ===== */
+.small-box {
+    overflow: hidden;
+}
+
+/* angka utama desktop */
+.small-box h3 {
+    font-size: 26px;
+    line-height: 1.1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* text bawah */
+.small-box p {
+    font-size: 13px;
+    white-space: nowrap;
+}
+
+/* icon default */
+.small-box .icon {
+    font-size: 55px;
+    opacity: 0.2;
+}
+
+/* ===== MOBILE FIX ===== */
+@media (max-width: 768px) {
+
+    .small-box {
+        min-height: 90px;
+    }
+
+    .small-box h3 {
+        font-size: 16px !important;
+        white-space: normal !important;
+        word-break: break-word;
+        line-height: 1.2;
+    }
+
+    .small-box p {
+        font-size: 11px !important;
+        white-space: normal;
+    }
+
+    .small-box .icon {
+        font-size: 35px;
+        opacity: 0.15;
+    }
+
+    .col-6 {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+</style>
+@stop
+
+@php
+function formatShort($number) {
+    if ($number >= 1000000000) {
+        return round($number/1000000000, 1).' M';
+    } elseif ($number >= 1000000) {
+        return round($number/1000000, 1).' JT';
+    } elseif ($number >= 1000000) {
+        return round($number/1000, 1).' K';
+    }
+    return $number;
+}
+@endphp
+
 
 @section('content')
-
+<div class="container-fluid">
 <div class="row">
 
     <div class="col-lg-3 col-6">
@@ -15,7 +91,7 @@
 
             <div class="inner">
                 <h3>
-                    {{ number_format($stokReady, 0, ',', '.') }}
+                    {{ number_format($stokReady, 0, ',', '.') }} unit
                 </h3>
 
                 <p>Stok Ready</p>
@@ -33,7 +109,7 @@
 
             <div class="inner">
                 <h3>
-                    Rp {{ number_format($nilaiBarang, 0, ',', '.') }}
+                     Rp {{ formatShort($nilaiBarang) }}
                 </h3>
 
                 <p>Nilai Barang</p>
@@ -51,7 +127,7 @@
 
             <div class="inner">
                 <h3>
-                    {{ number_format($itemTerjual, 0, ',', '.') }}
+                    {{ number_format($itemTerjual, 0, ',', '.') }} unit
                 </h3>
 
                 <p>Item Terjual</p>
@@ -69,7 +145,7 @@
 
             <div class="inner">
                 <h3>
-                    Rp {{ number_format($nilaiTerjual, 0, ',', '.') }}
+                     Rp {{ formatShort($nilaiTerjual) }}
                 </h3>
 
                 <p>Nilai Terjual</p>
@@ -92,7 +168,7 @@
 
             <div class="inner">
                 <h3>
-                    Rp {{ number_format($profit, 0, ',', '.') }}
+                     Rp {{ formatShort($profit) }}
                 </h3>
 
                 <p>Total Profit</p>
@@ -128,6 +204,7 @@
 
     </div>
 
+</div>
 </div>
 
 @stop
@@ -192,6 +269,7 @@ new Chart(ctx, {
     }
 
 });
+
 
 </script>
 

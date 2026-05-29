@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SaleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\PurchaseController;
 use Illuminate\Support\Facades\Route;
 
 // Route::get('/', function () {
@@ -43,15 +44,20 @@ Route::get(
 
 Route::prefix('sales')->group(function () {
 
-Route::get('/', [SaleController::class, 'index'])
+    Route::get('/', [SaleController::class, 'index'])
         ->name('sales.index');
 
-Route::get('/create', [SaleController::class, 'create'])
+    Route::get('/create', [SaleController::class, 'create'])
         ->name('sales.create');
 
-Route::post('/store', [SaleController::class, 'store'])
-        ->name('sales.store');
+    Route::post('/add-cart', [SaleController::class, 'addCart'])
+        ->name('sales.addCart');
 
+    Route::post('/remove-cart', [SaleController::class, 'removeCart'])
+        ->name('sales.removeCart');
+
+    Route::post('/store', [SaleController::class, 'store'])
+        ->name('sales.store');
 });
 
 
@@ -59,6 +65,12 @@ Route::get('/find-unit', [SaleController::class, 'findUnit'])
     ->name('sales.findUnit');
 
 Route::get('/{id}/print', [SaleController::class, 'print'])
-    ->name('sales.print');    
+    ->name('sales.print');
 
-require __DIR__.'/auth.php';
+Route::post('/sales/clear-cart', [SaleController::class, 'clearCart']);
+
+Route::post('/sales/update-price', [SaleController::class, 'updatePrice']);
+
+Route::resource('purchases', PurchaseController::class);
+
+require __DIR__ . '/auth.php';

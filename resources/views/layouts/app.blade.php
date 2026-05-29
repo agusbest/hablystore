@@ -1,49 +1,79 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+
 <head>
+
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1">
+
+    <meta name="csrf-token"
+          content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'Hably Store') }}</title>
 
-    <!-- Manifest -->
-    <link rel="manifest" href="{{ asset('favicons/manifest.json') }}">
+    <!-- CSS -->
+    <link rel="stylesheet"
+          href="{{ asset('assets/css/bootstrap.min.css') }}">
 
-    <!-- Favicon -->
-    <link rel="icon" href="{{ asset('assets/img/hablystore.ico?v=99') }}">
-    <link rel="shortcut icon" href="{{ asset('assets/img/hablystore.ico?v=99') }}">
+    <link rel="stylesheet"
+          href="{{ asset('assets/css/adminlte.min.css') }}">
 
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet"
+          href="{{ asset('assets/fontawesome/css/all.min.css') }}">
 
-    <!-- CSS (PINDAH KE PUBLIC ASSETS) -->
-    <link rel="stylesheet" href="{{ asset('assets/css/app.css') }}">
+ </head>
 
-    <!-- Contoh tambahan kalau kamu pakai Bootstrap / plugin -->
-   
-</head>
+<body class="hold-transition sidebar-mini layout-fixed">
 
-<body class="font-sans antialiased">
-    <div class="min-h-screen bg-gray-100">
+<div class="wrapper">
 
-        @include('layouts.navigation')
+    {{-- Navbar --}}
+    @include('layouts.navbar')
 
-        <!-- Page Heading -->
+    {{-- Sidebar --}}
+    @include('layouts.sidebar')
+
+    {{-- Content --}}
+    <div class="content-wrapper p-3">
+
         @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
+
+            <div class="content-header">
+
+                {{ $header }}
+
+            </div>
+
         @endisset
 
-        <!-- Page Content -->
-        <main>
+        <section class="content">
+
             {{ $slot }}
-        </main>
+
+        </section>
 
     </div>
+
+</div>
+
+<!-- JS -->
+<script src="{{ asset('assets/plugins/jquery.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/bootstrap.bundle.min.js') }}"></script>
+
+<script src="{{ asset('assets/js/adminlte.min.js') }}"></script>
+
+
+
+<script>
+$(document).ready(function () {
+    $('[data-widget="pushmenu"]').PushMenu('init');
+});
+</script>
+
+
+
 </body>
 </html>

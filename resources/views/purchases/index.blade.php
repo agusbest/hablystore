@@ -11,17 +11,23 @@
 @section('content')
 
 <div class="card">
+
     <div class="card-body">
+
         <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap">
+
             <form action="{{ route('sales.index') }}"
                   method="GET"
                   class="mb-2">
+
                 <div class="input-group">
+
                     <input type="text"
                            name="search"
                            class="form-control"
                            placeholder="Cari invoice/customer..."
                            value="{{ request('search') }}">
+
                     <div class="input-group-append">
 
                         <button class="btn btn-primary">
@@ -72,7 +78,6 @@
                         <th>Invoice</th>
                         <th>Tanggal</th>
                         <th>Customer</th>
-                        <th>Np. HP</th>
                         <th>Total</th>
                         <th width="70">Aksi</th>
                     </tr>
@@ -91,9 +96,6 @@
                         </td>
                         <td>
                             {{ $sale->customer_name ?? '-' }}
-                        </td>
-                        <td>
-                            {{ $sale->customer_phone ?? '-' }}
                         </td>
                         <td>
                             <b>
@@ -121,50 +123,45 @@
 
                         <td colspan="5" class="p-0">
 
-                         <table class="table table-sm mb-0 w-100">
+                            <table class="table table-sm mb-0">
 
-                        <thead class="bg-secondary">
+                                <thead class="bg-secondary">
 
-                            <tr>
-                                <th width="50">No</th>
-                                <th>IMEI</th>
-                                <th>Produk</th>
-                                <th width="200" class="text-end">
-                                    Harga
-                                </th>
-                            </tr>
+                                    <tr>
+                                        <th width="50">No</th>
+                                        <th>Produk</th>
+                                        <th>IMEI</th>
+                                        <th>Harga</th>
+                                    </tr>
 
-                        </thead>
+                                </thead>
 
-                        <tbody>
+                                <tbody>
 
-                            @foreach($sale->details as $i => $detail)
+                                    @foreach($sale->details as $i => $detail)
+                                    <tr>
+                                        <td>
+                                            {{ $i + 1 }}
+                                        </td>
+                                        <td>
+                                            {{ $detail->product->brand ?? '-' }}
+                                            {{ $detail->product->model ?? '' }}
+                                        </td>
+                                        <td>
+                                            {{ $detail->imei1 }}
+                                        </td>
 
-                            <tr>
+                                        <td>
+                                            Rp {{ number_format($detail->price) }}
+                                        </td>
 
-                                <td>
-                                    {{ $i + 1 }}
-                                </td>
+                                    </tr>
 
-                                <td>
-                                    {{ $detail->imei1 }}
-                                </td>
+                                    @endforeach
 
-                                <td>
-                                    {{ $detail->product_name ?? '-' }}
-                                </td>
+                                </tbody>
 
-                                <td class="text-end">
-                                    Rp {{ number_format($detail->sell_price) }}
-                                </td>
-
-                            </tr>
-
-                            @endforeach
-
-                        </tbody>
-
-                    </table>
+                            </table>
 
                         </td>
 

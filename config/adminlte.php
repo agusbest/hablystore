@@ -30,8 +30,9 @@ return [
     |
     */
 
-    'use_ico_only' => false,
-    'use_full_favicon' => true,
+    'use_ico_only' => true,
+    'use_full_favicon' => false,
+    'path' => 'hablystore.ico',
 
     /*
     |--------------------------------------------------------------------------
@@ -114,7 +115,7 @@ return [
         'mode' => 'fullscreen',
         'img' => [
             'path' => 'vendor/adminlte/dist/img/hablylogo.png',
-            'alt' => 'AdminLTE Preloader Image',
+            'alt' => 'HablyStore Preloader Image',
             'effect' => 'animation__shake',
             'width' => 60,
             'height' => 60,
@@ -190,12 +191,12 @@ return [
     |
     */
 
-    'classes_body' => 'sidebar-mini layout-fixed layout-navbar-fixed text-sm',
+    'classes_body' => '',
     'classes_brand' => '',
     'classes_brand_text' => '',
-    'classes_content_wrapper' => 'content-wrapper',
+    'classes_content_wrapper' => '',
     'classes_content_header' => '',
-    'classes_content' => 'container-fluid',
+    'classes_content' => '',
     'classes_sidebar' => 'sidebar-dark-primary elevation-4',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
@@ -215,9 +216,9 @@ return [
     */
 
     'sidebar_mini' => 'lg',
-    'sidebar_collapse' => true,
-    'sidebar_collapse_auto_size' => true,
-    'sidebar_collapse_remember' => true,
+    'sidebar_collapse' => false,
+    'sidebar_collapse_auto_size' => false,
+    'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -300,16 +301,16 @@ return [
 
     'menu' => [
         // Navbar items:
-      
+
         [
             'type' => 'fullscreen-widget',
             'topnav_right' => true,
         ],
 
         [
-        'text' => 'Dashboard',
-          'url'  => '/',
-          'icon' => 'fas fa-home',
+            'text' => 'Dashboard',
+            'url'  => '/',
+            'icon' => 'fas fa-home',
         ],
 
         [
@@ -321,28 +322,27 @@ return [
             'url'  => 'products',
             'icon' => 'fas fa-box',
         ],
-       
-        [
-            'text' => 'Customer',
-            'url'  => 'customers',
-            'icon' => 'fas fa-users',
-        ],
+
+        // [
+        //     'text' => 'Customer',
+        //     'url'  => 'customers',
+        //     'icon' => 'fas fa-users',
+        // ],
 
         [
             'header' => 'TRANSAKSI',
         ],
-
+        [
+            'text' => 'Pembelian',
+            'url'  => 'purchases',
+            'icon' => 'fas fa-shopping-cart',
+        ],
         [
             'text' => 'Penjualan',
             'route' => 'sales.index',
             'icon' => 'fas fa-cash-register',
         ],
 
-        [
-            'text' => 'Pembelian',
-            'url'  => 'purchases',
-            'icon' => 'fas fa-shopping-cart',
-        ],
         ['header' => 'account_settings'],
         [
             'text' => 'profile',

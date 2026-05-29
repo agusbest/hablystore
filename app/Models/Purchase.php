@@ -4,13 +4,12 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sale extends Model
+class Purchase extends Model
 {
-    protected $fillable = [
+     protected $fillable = [
         'invoice_number',
         'sale_date',
         'customer_name',
-        'customer_phone',
         'subtotal',
         'discount',
         'grand_total',

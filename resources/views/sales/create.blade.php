@@ -12,170 +12,88 @@
 
     {{-- LIST PRODUK --}}
     <div class="col-md-4">
-
         <div class="card card-primary card-outline">
-
             <div class="card-header">
-
                 <h3 class="card-title">
                     List Produk Ready
                 </h3>
-
             </div>
-
             <div class="card-body p-2">
-
                 <input
                     type="text"
                     id="search_product"
                     class="form-control mb-2"
                     placeholder="Cari produk..."
                 >
-
                 <div
                     style="
                         max-height:550px;
                         overflow-y:auto;
                    "
                 >
-                    <!-- <table class="table table-sm table-bordered">
-                        <thead>
-                            <tr>
-                                <th>Produk</th>
-                                <th>Stok</th>
+          <tbody id="product_table">
+
+                        @foreach($products as $product)
+
+                            @php
+                                $readyUnits = $product->units
+                                    ->where('status_stok', 'ready');
+                            @endphp
+
+                            @if($readyUnits->count() > 0)
+
+                            <tr class="product-row">
+
+                                {{-- PRODUK --}}
+                                <td width="90%">
+
+                                    <strong>
+                                        {{ $product->brand }}
+                                        {{ $product->model }}
+                                    </strong>
+                                    <br>
+                                    RAM:
+                                    {{ $product->ram }}
+                                    |
+                                    ROM:
+                                    {{ $product->rom }}
+                                    :
+                                    {{ $product->color }}
+                          
+                                <br>
+                                    <strong>IMEI:</strong>
+                                    <table
+                                        width="100%"
+                                        class="table table-sm table-borderless mb-0"
+                                    >
+                                        @foreach($readyUnits as $unit)
+                                        <tr>
+                                            <td>
+                                                {{ $unit->imei1 }}
+                                            </td>
+                                        </tr>
+                                        @endforeach
+                                    </table>
+                                </td>
+
+                                {{-- TOTAL STOK --}}
+                                <!-- <td
+                                    align="center"
+                                    width="10%"
+                                >
+                                    <span class="badge bg-primary">
+                                        {{ $readyUnits->count() }}
+                                    </span>
+
+                                </td> -->
+
                             </tr>
-                        </thead>
-                        <tbody id="product_table">
-                            @foreach($products as $product)
-                                @php
-                                    $readyUnits = $product->units
-                                        ->where('status_stok', 'ready');
-                                @endphp
-                                @if($readyUnits->count() > 0)
-                                <tr class="product-row">
-                                    <td>
-                                        <strong>
-                                            {{ $product->brand }}
-                                            {{ $product->model }}
-                                        </strong>
-                                        <br>
-                                        RAM:
-                                        {{ $product->ram }}
-                                        |
-                                        ROM:
-                                        {{ $product->rom }}
-                                        <br>
-                                        {{ $product->color }}
-                                        |
-                                        IMEI:
-                                        {{ $product->imei1 }}
-                                       
-                                        
 
-                                    </td>
+                            @endif
 
-                                    <td align="center">
+                        @endforeach
 
-                                        <span class="badge bg-success">
-
-                                            {{ $readyUnits->count() }}
-
-                                        </span>
-
-                                    </td>
-
-                                </tr>
-
-                                @endif
-
-                            @endforeach
-
-                        </tbody>
-
-                    </table> -->
-<tbody id="product_table">
-
-    @foreach($products as $product)
-
-        @php
-            $readyUnits = $product->units
-                ->where('status_stok', 'ready');
-        @endphp
-
-        @if($readyUnits->count() > 0)
-
-        <tr class="product-row">
-
-            {{-- PRODUK --}}
-            <td width="90%">
-
-                <strong>
-                    {{ $product->brand }}
-                    {{ $product->model }}
-                </strong>
-
-                <br>
-
-                RAM:
-                {{ $product->ram }}
-
-                |
-
-                ROM:
-                {{ $product->rom }}
-
-                :
-
-                {{ $product->color }}
-
-                <br>
-
-                <strong>IMEI:</strong>
-
-                <table
-                    width="100%"
-                    class="table table-sm table-borderless mb-0"
-                >
-
-                    @foreach($readyUnits as $unit)
-
-                    <tr>
-
-                        <td>
-
-                            {{ $unit->imei1 }}
-
-                        </td>
-
-                    </tr>
-
-                    @endforeach
-
-                </table>
-
-            </td>
-
-            {{-- TOTAL STOK --}}
-            <!-- <td
-                align="center"
-                width="10%"
-            >
-
-                <span class="badge bg-primary">
-
-                    {{ $readyUnits->count() }}
-
-                </span>
-
-            </td> -->
-
-        </tr>
-
-        @endif
-
-    @endforeach
-
-</tbody>
+                    </tbody>
 
                 </div>
 
@@ -187,31 +105,37 @@
 
     {{-- FORM TRANSAKSI --}}
     <div class="col-md-8">
-
         <div class="card">
-
             <div class="card-body">
-
                 <form
-                    action="{{ route('sales.store') }}"
-                    method="POST"
+                   id="salesForm"
+                   action="{{ route('sales.store') }}"
+                   method="POST"
                 >
-
                     @csrf
-
                     <div class="row">
-
                         <div class="col-md-6">
-
                             <div class="form-group">
-
                                 <label>Customer</label>
-
                                 <input
                                     type="text"
                                     name="customer_name"
                                     class="form-control"
                                     placeholder="Nama Customer"
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>No. HP</label>
+                                <input
+                                    type="text"
+                                    name="customer_phone"
+                                    class="form-control"
+                                    placeholder="No. HP Customer"
                                 >
 
                             </div>
@@ -242,70 +166,49 @@
                         </small>
 
                     </div>
-
-                    {{-- HASIL PRODUK --}}
-                    <div
-                        id="product_result"
-                        style="display:none;"
-                    >
-
-                        <div class="alert alert-info">
-
-                            <h5 id="product_name"></h5>
-
-                            <p class="mb-1">
-
-                                IMEI :
-                                <span id="imei_text"></span>
-
-                            </p>
-
-                            <p class="mb-0">
-
-                                Harga :
-                                Rp
-                                <span id="harga_text"></span>
-
-                            </p>
-
-                        </div>
-
+                    <div class="card mt-3">
+                    <div class="card-header">
+                        <h5>
+                            Keranjang Penjualan
+                        </h5>
                     </div>
+                    <div class="card-body p-0">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>Barang</th>
+                                        <th>IMEI</th>
+                                        <th>Harga</th>
+                                        <th width="50">#</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="cart_body">
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th colspan="2">
+                                            TOTAL
+                                        </th>
+                                        <th colspan="2" id="grand_total">
+                                            Rp 0
+                                       </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
 
                     <input
                         type="hidden"
                         name="product_unit_id"
                         id="product_unit_id"
                     >
-
                     <hr>
-
-                    <div class="row">
-
                         <div class="col-md-4">
-
                             <div class="form-group">
-
-                                <label>Harga Jual</label>
-
-                                <input
-                                    type="number"
-                                    name="sell_price"
-                                    id="sell_price"
-                                    class="form-control"
-                                    required
-                                >
-
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-4">
-
-                            <div class="form-group">
-
                                 <label>Bayar</label>
-
                                 <input
                                     type="number"
                                     name="paid_amount"
@@ -313,31 +216,35 @@
                                     class="form-control"
                                     required
                                 >
-
                             </div>
-
                         </div>
+                   <div class="row mt-3">
 
+                    <div class="col-6">
+                        <button
+                            class="btn btn-primary w-100"
+                        >
+                            <i class="fas fa-save"></i>
+                            Simpan Transaksi
+                        </button>
                     </div>
 
-                    <button
-                        class="btn btn-primary"
-                    >
+                    <div class="col-6">
+                        <button
+                            type="button"
+                            onclick="cancelTransaction()"
+                            class="btn btn-warning w-100"
+                        >
+                            <i class="fas fa-times"></i>
+                            Batal Transaksi
+                        </button>
+                    </div>
 
-                        <i class="fas fa-save"></i>
-
-                        Simpan Transaksi
-
-                    </button>
-
+                </div>
                 </form>
-
             </div>
-
         </div>
-
     </div>
-
 </div>
 
 @stop
@@ -375,53 +282,40 @@
     // SCAN IMEI
     // =========================
 
-    $('#imei_input').keypress(function(e){
+         $('#imei_input').keypress(function(e){
+
         if(e.which == 13){
+
             e.preventDefault();
+
             let imei = $(this).val();
-            if(imei == ''){
-                alert('IMEI kosong');
-                return;
-            }
+
             $.ajax({
-                url: "{{ route('sales.findUnit') }}",
-                type: "GET",
+
+                url: "{{ route('sales.addCart') }}",
+
+                type: "POST",
+
                 data: {
-                    imei: imei
+
+                    _token : "{{ csrf_token() }}",
+                    imei   : imei
+
                 },
-                success: function(res){
+
+                success:function(res){
+
                     if(res.success){
-                        $('#product_result').show();
-                        $('#product_name')
-                            .text(res.unit.product_name);
-                        $('#imei_text')
-                            .text(res.unit.imei1);
-                        $('#harga_text')
-                            .text(
-                                Number(res.unit.sell_price)
-                                .toLocaleString('id-ID')
-                            );
-                        $('#sell_price')
-                            .val(res.unit.sell_price);
-                        $('#paid_amount')
-                            .val(res.unit.sell_price);
-                        $('#product_unit_id')
-                            .val(res.unit.id);
-                        $('#imei_input')
-                            .val('');
+
+                        renderCart(res.cart);
+
+                        $('#imei_input').val('');
+
                     }else{
 
-                        alert(
-                            'IMEI tidak ditemukan / sudah terjual'
-                        );
+                        alert(res.message ?? 'IMEI tidak ditemukan');
 
                     }
-
-                },
-
-                error:function(){
-
-                    alert('Terjadi kesalahan server');
 
                 }
 
@@ -430,6 +324,196 @@
         }
 
     });
+
+
+function renderCart(cart)
+{
+    let html = '';
+    let total = 0;
+
+    cart.forEach(function(item, index){
+
+        total += parseFloat(item.sell_price);
+
+        html += `
+        <tr>
+
+            <td>
+                <strong>${item.product_name}</strong>
+                <br>
+                RAM: ${item.ram}
+                | ROM: ${item.rom}
+                | ${item.color}
+                | ${item.category_type ?? ''}
+            </td>
+
+            <td>
+                ${item.imei1}
+            </td>
+
+            <td width="180">
+
+                <input
+                    type="number"
+                    class="form-control form-control-sm text-end item-price"
+                    value="${item.sell_price}"
+                    data-imei="${item.imei1}"
+                >
+
+            </td>
+
+            <td align="center">
+
+                <button
+                    onclick="removeCart('${item.imei1}')"
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                >
+                    X
+                </button>
+
+            </td>
+
+        </tr>
+        `;
+
+    });
+
+    $('#cart_body').html(html);
+
+    calculateTotal();
+
+    // event input harga
+    $('.item-price').on('input', function(){
+
+        calculateTotal();
+
+    });
+
+    // simpan saat selesai ketik
+    $('.item-price').on('change', function(){
+
+        let imei = $(this).data('imei');
+        let price = $(this).val();
+
+        updatePrice(imei, price);
+
+    });
+}
+
+function calculateTotal()
+{
+    let total = 0;
+
+    $('.item-price').each(function(){
+
+        total += parseFloat($(this).val()) || 0;
+
+    });
+
+    $('#grand_total').html(
+        'Rp ' + Number(total).toLocaleString('id-ID')
+    );
+}
+
+
+
+function updatePrice(imei, price)
+{
+    $.ajax({
+        url: '/sales/update-price',
+        type: 'POST',
+        data: {
+            imei: imei,
+            sell_price: price,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(res){
+
+            renderCart(res.cart);
+
+        }
+    });
+}
+
+function removeCart(imei)
+{
+    $.ajax({
+        url: '/sales/remove-cart',
+        type: 'POST',
+        data: {
+            imei: imei,
+            _token: $('meta[name="csrf-token"]').attr('content')
+        },
+        success: function(res) {
+
+            if(res.success){
+
+                renderCart(res.cart);
+
+            } else {
+
+                alert(res.message);
+            }
+        }
+    });
+}
+
+function cancelTransaction()
+{
+    if(confirm('Batalkan transaksi?')){
+
+        $.post('/sales/clear-cart', {
+            _token: $('meta[name="csrf-token"]').attr('content')
+        }, function(res){
+
+            renderCart([]);
+
+        });
+
+    }
+}
+
+
+$('#salesForm').submit(function(e){
+
+    e.preventDefault();
+
+    $.ajax({
+
+        url: $(this).attr('action'),
+        type: 'POST',
+        data: $(this).serialize(),
+
+        success: function(res){
+
+        // console.log(res);
+
+        if(res.success){
+
+            alert('Transaksi berhasil');
+
+            renderCart([]);
+
+            $('#salesForm')[0].reset();
+
+        } else {
+
+            alert('Gagal simpan transaksi');
+            console.log(res.message);
+        }
+
+    },
+
+        error: function(xhr){
+
+            console.log(xhr);
+            alert('Terjadi kesalahan server');
+        }
+
+    });
+
+});
 
 </script>
 

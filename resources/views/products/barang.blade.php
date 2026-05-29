@@ -5,7 +5,9 @@
 @section('content_header')
     <h1>Data Barang</h1>
 @stop
-
+@section('css')
+<link rel="shortcut icon" href="{{ asset('hablystore.ico') }}">
+@stop
 @section('content')
 
 <!-- <div class="mb-3">
@@ -128,8 +130,10 @@
                 </tbody>
 
             </table>
-            <div class="mt-3 d-flex justify-content-center">
-                {{ $products->appends(request()->query())->links() }}
+                  <div class="mt-3 d-flex justify-content-center">
+                    {{ $products->appends(request()->query())->links() }}
+                </div>
+
             </div>
         </div>
 
@@ -179,35 +183,6 @@
     </div>
 </div>
 
-@stop
-
-@section('css')
-<style>
-
-@media (max-width: 768px){
-
-    h1{
-        font-size: 22px;
-    }
-
-    .table{
-        font-size: 13px;
-    }
-
-    .btn{
-        font-size: 13px;
-    }
-
-    .modal-dialog{
-        margin: 10px;
-    }
-
-    .card-body{
-        padding: 10px;
-    }
-}
-
-</style>
 @stop
 
 @section('js')
